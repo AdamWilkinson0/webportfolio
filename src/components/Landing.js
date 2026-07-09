@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FiLinkedin } from 'react-icons/fi';
 
 const FACTS = [
@@ -18,11 +18,9 @@ const EMAIL = 'adamowilkinson14@gmail.com';
 const LINKEDIN = 'https://www.linkedin.com/in/adam-wilkinson-1b34501a8';
 
 const Landing = () => {
-  const [trail, setTrail] = useState([]);
   const [fact, setFact] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const lastMove = useRef(0);
   const contactRef = useRef(null);
 
   useEffect(() => {
@@ -46,35 +44,13 @@ const Landing = () => {
     }
   };
 
-  const handleTrailMove = useCallback((e) => {
-    const now = Date.now();
-    if (now - lastMove.current < 70) return;
-    lastMove.current = now;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const id = now + Math.random();
-    const point = { id, x: e.clientX - rect.left, y: e.clientY - rect.top };
-    setTrail((prev) => [...prev, point].slice(-14));
-    setTimeout(() => {
-      setTrail((prev) => prev.filter((t) => t.id !== id));
-    }, 650);
-  }, []);
-
   const cycleFact = () => setFact((f) => (f + 1) % FACTS.length);
 
   return (
     <section
       id="landing"
-      onMouseMove={handleTrailMove}
       className="relative px-6 sm:px-10 lg:px-14 pt-28 pb-16 lg:pt-32 lg:pb-20"
     >
-      {trail.map((t) => (
-        <span
-          key={t.id}
-          className="pointer-events-none absolute z-[5] w-[7px] h-[7px] rounded-full bg-baltic-blue opacity-55 -translate-x-1/2 -translate-y-1/2"
-          style={{ left: t.x, top: t.y }}
-        />
-      ))}
-
       <div className="container mx-auto flex flex-col lg:flex-row gap-12 lg:gap-14 items-start">
         {/* Identity column */}
         <div className="lg:flex-none lg:w-[380px] flex flex-col gap-6">
@@ -161,7 +137,7 @@ const Landing = () => {
               <span className="w-2.5 h-2.5 rounded-full bg-[#e8b95f]" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#9fc1e0]" />
             </div>
-            <div className="text-[#9fc1e0]">adam@dev ~ %</div>
+            <div className="text-[#9fc1e0]">adamwilkinson@site ~ %</div>
             <div className="mt-1.5 min-h-[20px]">
               {FACTS[fact]}
               <span className="animate-blink">▌</span>
