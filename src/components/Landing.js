@@ -2,9 +2,9 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { FiLinkedin } from 'react-icons/fi';
 
 const FACTS = [
-  '$ status → building tools, drinking coffee',
   '$ hobbies → go karting, rock climbing, running',
-  '$ debug_method → talk to rubber duck, then Stack Overflow',
+  '$ built → Terrivia & Countrivia, geography games on a live world map',
+  '$ currently → an AI analyser scoring news sentiment vs 14-day NYSE prices',
   '$ next_project → tbd, taking suggestions',
 ];
 
@@ -65,7 +65,7 @@ const Landing = () => {
     <section
       id="landing"
       onMouseMove={handleTrailMove}
-      className="relative overflow-hidden px-6 sm:px-10 lg:px-14 pt-28 pb-16 lg:pt-32 lg:pb-20"
+      className="relative px-6 sm:px-10 lg:px-14 pt-28 pb-16 lg:pt-32 lg:pb-20"
     >
       {trail.map((t) => (
         <span
@@ -108,7 +108,7 @@ const Landing = () => {
               </button>
 
               {contactOpen && (
-                <div className="absolute left-0 top-full mt-2 z-20 w-72 rounded-lg border border-baltic-ink/10 bg-white p-3 shadow-[0_10px_30px_rgba(23,38,58,0.18)]">
+                <div className="absolute left-0 top-full mt-2 z-40 w-72 rounded-lg border border-baltic-ink/10 bg-white p-3 shadow-[0_10px_30px_rgba(23,38,58,0.18)]">
                   <button
                     onClick={copyEmail}
                     className="w-full flex items-center justify-between gap-2 rounded-md px-3 py-2 text-left font-mono text-[12.5px] text-baltic-ink bg-baltic-surface hover:bg-baltic-blue/15 transition-colors"

@@ -56,7 +56,7 @@ const Projects = () => {
       tagline: 'Geography quiz: map & typing challenge modes.',
       technologies: ['JavaScript', 'HTML/CSS'],
       images: ['/images/countrivia-1.png', '/images/countrivia-2.png'],
-      link: 'https://countriviatemp.netlify.app',
+      link: 'https://countriviaa.netlify.app',
     },
     {
       name: 'Terrivia',
