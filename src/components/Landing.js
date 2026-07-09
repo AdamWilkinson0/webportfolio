@@ -54,11 +54,19 @@ const Landing = () => {
       <div className="container mx-auto flex flex-col lg:flex-row gap-12 lg:gap-14 items-start">
         {/* Identity column */}
         <div className="lg:flex-none lg:w-[380px] flex flex-col gap-6">
-          <img
-            src="/images/profile.png"
-            alt="Adam Wilkinson"
-            className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md"
-          />
+          <div className="w-28 rounded-[14px] overflow-hidden border-2 border-baltic-ink shadow-[0_2px_8px_rgba(23,38,58,0.15)]">
+            <div className="bg-baltic-ink px-2 py-1.5 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#e0796a]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#e8b95f]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#9fc1e0]" />
+              <span className="ml-1 font-mono text-[8px] text-[#9fc1e0]">adam.png</span>
+            </div>
+            <img
+              src="/images/profile.png"
+              alt="Adam Wilkinson"
+              className="w-full aspect-square object-cover block"
+            />
+          </div>
           <h1 className="font-mono font-bold text-5xl md:text-6xl leading-[1.05] tracking-tight text-baltic-ink">
             Adam<br />Wilkinson
           </h1>
