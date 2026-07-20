@@ -120,12 +120,9 @@ const Landing = () => {
             practical, well-designed applications.
           </p>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
             {SKILLS.map((skill) => (
-              <span
-                key={skill}
-                className="font-mono text-[12.5px] text-baltic-ink bg-baltic-surface border border-baltic-ink/10 px-2.5 py-1 rounded-full"
-              >
+              <span key={skill} className="font-mono text-[12.5px] text-baltic-ink">
                 {skill}
               </span>
             ))}
