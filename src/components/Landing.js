@@ -2,13 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FiLinkedin } from 'react-icons/fi';
 
 const FACTS = [
-  '$ hobbies → go karting, rock climbing, running',
-  '$ built → Terrivia & Countrivia, geography games on a live world map',
-  '$ currently → an AI analyser scoring news sentiment vs 14-day NYSE prices',
-  '$ next_project → tbd, taking suggestions',
+  '$ hobbies → motorsport, rock climbing, running, mountaineering, sailing',
+  '$ currently → learning Android App Development, using Kotlin',
+  '$ next_project → creating an iPhone standby mode clone for android',
 ];
 
-const SKILLS = ['Python', 'JavaScript', 'SQL', 'Java', 'Node.js', 'D3.js'];
+const SKILLS = ['Python', 'JavaScript', 'SQL', 'Java', 'Node.js', 'C', 'HTML/CSS', 'TypeScript', 'Kotlin', 'PostgreSQL'];
 
 const Highlight = ({ children }) => (
   <span className="bg-baltic-blue/[0.14] px-1.5 py-0.5 rounded">{children}</span>
@@ -17,8 +16,10 @@ const Highlight = ({ children }) => (
 const EMAIL = 'adamowilkinson14@gmail.com';
 const LINKEDIN = 'https://www.linkedin.com/in/adam-wilkinson-1b34501a8';
 
+const DEFAULT_FACT = FACTS.findIndex((f) => f.startsWith('$ currently'));
+
 const Landing = () => {
-  const [fact, setFact] = useState(0);
+  const [fact, setFact] = useState(DEFAULT_FACT);
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const contactRef = useRef(null);
@@ -54,25 +55,14 @@ const Landing = () => {
       <div className="container mx-auto flex flex-col lg:flex-row gap-12 lg:gap-14 items-start">
         {/* Identity column */}
         <div className="lg:flex-none lg:w-[380px] flex flex-col gap-6">
-          <div className="relative w-24 h-24 mb-3">
-            <div className="absolute -inset-1.5 border-[1.5px] border-dashed border-baltic-blue rounded-2xl" />
-            <span className="absolute top-[-9px] left-[-9px] w-1.5 h-1.5 bg-baltic-blue" />
-            <span className="absolute top-[-9px] right-[-9px] w-1.5 h-1.5 bg-baltic-blue" />
-            <span className="absolute bottom-[-9px] left-[-9px] w-1.5 h-1.5 bg-baltic-blue" />
-            <span className="absolute bottom-[-9px] right-[-9px] w-1.5 h-1.5 bg-baltic-blue" />
-            <img
-              src="/images/profile.png"
-              alt="Adam Wilkinson"
-              className="relative w-24 h-24 object-cover rounded-[14px] border-2 border-white shadow-[0_2px_8px_rgba(23,38,58,0.15)]"
-            />
-            <span className="absolute bottom-[-22px] left-0 font-mono text-[9px] text-baltic-bg bg-baltic-ink px-1.5 py-0.5 rounded-[3px]">96×96</span>
-          </div>
+          <img
+            src="/images/profile.png"
+            alt="Adam Wilkinson"
+            className="w-24 h-24 mb-3 object-cover rounded-[14px] border-2 border-white shadow-[0_2px_8px_rgba(23,38,58,0.15)]"
+          />
           <h1 className="font-mono font-bold text-5xl md:text-6xl leading-[1.05] tracking-tight text-baltic-ink">
             Adam<br />Wilkinson
           </h1>
-          <p className="font-serif text-lg leading-relaxed text-baltic-ink/70 max-w-xs">
-            Building tools to fix everyday problems &amp; help people learn about the world.
-          </p>
           <div className="flex flex-wrap gap-3.5">
             <a
               href="/Adam_Wilkinson_CV.pdf"
@@ -119,13 +109,15 @@ const Landing = () => {
         {/* About column */}
         <div id="about" className="flex-1 flex flex-col gap-6 pt-1 scroll-mt-24">
           <p className="font-serif text-[17px] leading-[1.65] text-baltic-ink">
-            I'm a self-taught developer and CS student at{' '}
-            <Highlight>University of Southampton</Highlight>, currently a Software
-            Engineering Intern at <Highlight>SMMI</Highlight>. I got into code through
-            games, and now I build small tools that solve everyday problems — like{' '}
-            <Highlight>Terrivia</Highlight>, a geography trivia game, and an AI-driven{' '}
-            <Highlight>NYSE Sentiment Analyser</Highlight>. Outside of code: go karting,
-            rock climbing, running.
+            I'm a self-taught developer and Computer Science student at the{' '}
+            <Highlight>University of Southampton</Highlight>, currently working as a
+            Software Engineering Intern at <Highlight>SMMI</Highlight>. I first got into
+            programming through games, and since then I've enjoyed building software that
+            solves real-world problems, or simply improves a small interaction in daily
+            life. Whether it's creating <Highlight>Terrivia</Highlight>, a geography
+            trivia game, or developing an AI-powered{' '}
+            <Highlight>NYSE Sentiment Analyser</Highlight>, I enjoy turning ideas into
+            practical, well-designed applications.
           </p>
 
           <div className="flex flex-wrap gap-2">
@@ -145,7 +137,7 @@ const Landing = () => {
               <span className="w-2.5 h-2.5 rounded-full bg-[#e8b95f]" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#9fc1e0]" />
             </div>
-            <div className="text-[#9fc1e0]">adamwilkinson@site ~ %</div>
+            <div className="text-[#9fc1e0]">$ python3 adamwilkinson.py</div>
             <div className="mt-1.5 min-h-[20px]">
               {FACTS[fact]}
               <span className="animate-blink">▌</span>

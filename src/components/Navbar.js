@@ -21,7 +21,7 @@ const Navbar = () => {
             duration={500}
             className="font-mono font-bold text-base text-baltic-ink cursor-pointer"
           >
-            adamwilkinson<span className="text-baltic-blue">.</span>site
+            adam wilkinson
           </Link>
 
           <div className="hidden md:flex items-center gap-9 text-sm">
