@@ -66,6 +66,13 @@ const Projects = () => {
       link: 'https://terrivia.com',
     },
     {
+      name: 'Kotlin Wallet',
+      tagline: 'Android tap-to-pay demo: card carousel paid with blank NFC tags.',
+      technologies: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Android NFC'],
+      images: ['/images/kotlin-wallet.png'],
+      link: 'https://github.com/AdamWilkinson0/kotlinWallet',
+    },
+    {
       name: 'NYSE Sentiment Analysis',
       tagline: 'Financial news sentiment vs. 14-day stock price trends.',
       technologies: ['Python', 'Streamlit', 'FinBERT', 'Plotly', 'Pandas'],
