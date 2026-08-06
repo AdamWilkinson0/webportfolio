@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const ProjectCard = ({ name, tagline, technologies, images, link }) => {
   const [activeImg, setActiveImg] = useState(0);
@@ -8,7 +9,7 @@ const ProjectCard = ({ name, tagline, technologies, images, link }) => {
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group bg-baltic-bg rounded-[10px] overflow-hidden border border-baltic-ink/10 flex flex-col cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:rotate-[-0.6deg] hover:shadow-[0_16px_34px_rgba(23,38,58,0.2)]"
+      className="group h-full bg-baltic-bg rounded-[10px] overflow-hidden border border-baltic-ink/10 flex flex-col cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:rotate-[-0.6deg] hover:shadow-[0_16px_34px_rgba(23,38,58,0.2)]"
     >
       <div className="relative">
         <img
@@ -49,15 +50,15 @@ const ProjectCard = ({ name, tagline, technologies, images, link }) => {
   );
 };
 
+const getItemsPerView = () => {
+  if (typeof window === 'undefined') return 3;
+  if (window.innerWidth >= 1024) return 3;
+  if (window.innerWidth >= 768) return 2;
+  return 1;
+};
+
 const Projects = () => {
   const projects = [
-    {
-      name: 'Countrivia',
-      tagline: 'Geography quiz: map & typing challenge modes.',
-      technologies: ['JavaScript', 'HTML/CSS'],
-      images: ['/images/countrivia-1.png', '/images/countrivia-2.png'],
-      link: 'https://countriviaa.netlify.app',
-    },
     {
       name: 'Terrivia',
       tagline: 'Clue-based country identification on a live world map.',
@@ -68,7 +69,7 @@ const Projects = () => {
     {
       name: 'Kotlin Wallet',
       tagline: 'Android tap-to-pay demo: card carousel paid with blank NFC tags.',
-      technologies: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Android NFC'],
+      technologies: ['Kotlin', 'Jetpack Compose', 'Android NFC'],
       images: ['/images/kotlin-wallet.png'],
       link: 'https://github.com/AdamWilkinson0/kotlinWallet',
     },
@@ -79,16 +80,84 @@ const Projects = () => {
       images: ['/images/nyse-1.png', '/images/nyse-2.png'],
       link: 'https://github.com/AdamWilkinson0/Stock-News-Sentiment-Analysis',
     },
+    {
+      name: 'Countrivia',
+      tagline: 'Geography quiz: map & typing challenge modes.',
+      technologies: ['JavaScript', 'HTML/CSS'],
+      images: ['/images/countrivia-1.png', '/images/countrivia-2.png'],
+      link: 'https://countriviaa.netlify.app',
+    },
   ];
+
+  const [itemsPerView, setItemsPerView] = useState(getItemsPerView);
+  const [index, setIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
+
+  useEffect(() => {
+    const onResize = () => setItemsPerView(getItemsPerView());
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const maxIndex = Math.max(0, projects.length - itemsPerView);
+
+  useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  const move = (delta) => setIndex((i) => Math.min(Math.max(i + delta, 0), maxIndex));
+
+  const onTouchEnd = (e) => {
+    if (touchStartX === null) return;
+    const distance = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(distance) > 50) move(distance > 0 ? 1 : -1);
+    setTouchStartX(null);
+  };
+
+  const arrowClass =
+    'w-9 h-9 flex items-center justify-center rounded-full border border-baltic-ink/15 text-baltic-ink transition-colors duration-200 hover:bg-baltic-bg disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent';
 
   return (
     <section id="projects" className="bg-baltic-surface py-16 lg:py-20 px-6 sm:px-10 lg:px-14 scroll-mt-16">
       <div className="container mx-auto">
-        <h2 className="font-mono font-bold text-[26px] text-baltic-ink mb-8">Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="font-mono font-bold text-[26px] text-baltic-ink">Projects</h2>
+          {maxIndex > 0 && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => move(-1)}
+                disabled={index === 0}
+                className={arrowClass}
+                aria-label="Previous projects"
+              >
+                <FiChevronLeft size={18} />
+              </button>
+              <button
+                onClick={() => move(1)}
+                disabled={index === maxIndex}
+                className={arrowClass}
+                aria-label="Next projects"
+              >
+                <FiChevronRight size={18} />
+              </button>
+            </div>
+          )}
+        </div>
+        <div
+          className="overflow-hidden -mx-3 -my-3 py-3"
+          onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+          onTouchEnd={onTouchEnd}
+        >
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${index * (100 / itemsPerView)}%)` }}
+          >
+            {projects.map((project, i) => (
+              <div key={i} className="flex-none px-3" style={{ width: `${100 / itemsPerView}%` }}>
+                <ProjectCard {...project} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
