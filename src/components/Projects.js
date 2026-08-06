@@ -141,9 +141,14 @@ const Projects = () => {
     setTouchStartX(null);
   };
 
-  // Straddles the outer edge of the first/last visible card, centred on the artwork.
   const arrowClass =
-    'absolute top-[124px] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-baltic-bg border border-baltic-ink/15 text-baltic-ink shadow-[0_4px_14px_rgba(23,38,58,0.18)] transition-all duration-200 hover:bg-white hover:shadow-[0_6px_18px_rgba(23,38,58,0.25)] disabled:opacity-25 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-baltic-bg';
+    'absolute top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-baltic-bg border border-baltic-ink/15 text-baltic-ink shadow-[0_4px_14px_rgba(23,38,58,0.18)] transition-all duration-200 hover:bg-white hover:shadow-[0_6px_18px_rgba(23,38,58,0.25)] disabled:opacity-25 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-baltic-bg';
+
+  // Sits midway between the cards and the edge of the screen. The gutter is the
+  // section padding plus whatever slack the centred container leaves, so measure it
+  // off the viewport: (100vw - carousel width) / 2 per side, halved to centre in it.
+  // Below sm the gutter is narrower than the button, so it straddles the card edge.
+  const arrowInset = 'calc((100% - 100vw) / 4)';
 
   return (
     <section id="projects" className="bg-baltic-surface py-16 lg:py-20 px-6 sm:px-10 lg:px-14 scroll-mt-16">
@@ -172,7 +177,8 @@ const Projects = () => {
               <button
                 onClick={() => move(-1)}
                 disabled={index === 0}
-                className={`${arrowClass} left-0 -translate-x-1/2`}
+                className={`${arrowClass} left-0 sm:left-[var(--arrow-inset)] -translate-x-1/2`}
+                style={{ '--arrow-inset': arrowInset }}
                 aria-label="Previous projects"
               >
                 <FiChevronLeft size={20} />
@@ -180,7 +186,8 @@ const Projects = () => {
               <button
                 onClick={() => move(1)}
                 disabled={index === maxIndex}
-                className={`${arrowClass} right-0 translate-x-1/2`}
+                className={`${arrowClass} right-0 sm:right-[var(--arrow-inset)] translate-x-1/2`}
+                style={{ '--arrow-inset': arrowInset }}
                 aria-label="Next projects"
               >
                 <FiChevronRight size={20} />
