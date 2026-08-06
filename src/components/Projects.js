@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const ProjectCard = ({ name, tagline, technologies, images, link }) => {
@@ -92,6 +92,10 @@ const Projects = () => {
   const [itemsPerView, setItemsPerView] = useState(getItemsPerView);
   const [index, setIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
+  const viewportRef = useRef(null);
+  const wheelAccum = useRef(0);
+  const wheelLock = useRef(0);
+  const lastWheel = useRef(0);
 
   useEffect(() => {
     const onResize = () => setItemsPerView(getItemsPerView());
@@ -107,6 +111,29 @@ const Projects = () => {
 
   const move = (delta) => setIndex((i) => Math.min(Math.max(i + delta, 0), maxIndex));
 
+  // Two-finger trackpad swipes: React's onWheel is passive, so bind it directly
+  // to keep the page (and browser back-navigation) from taking the gesture.
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      const now = Date.now();
+      if (now - lastWheel.current > 200) wheelAccum.current = 0;
+      lastWheel.current = now;
+      if (now < wheelLock.current) return;
+      wheelAccum.current += e.deltaX;
+      if (Math.abs(wheelAccum.current) > 40) {
+        move(wheelAccum.current > 0 ? 1 : -1);
+        wheelAccum.current = 0;
+        wheelLock.current = now + 450;
+      }
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [maxIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const onTouchEnd = (e) => {
     if (touchStartX === null) return;
     const distance = touchStartX - e.changedTouches[0].clientX;
@@ -114,51 +141,67 @@ const Projects = () => {
     setTouchStartX(null);
   };
 
+  // Straddles the outer edge of the first/last visible card, centred on the artwork.
   const arrowClass =
-    'w-9 h-9 flex items-center justify-center rounded-full border border-baltic-ink/15 text-baltic-ink transition-colors duration-200 hover:bg-baltic-bg disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent';
+    'absolute top-[124px] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-baltic-bg border border-baltic-ink/15 text-baltic-ink shadow-[0_4px_14px_rgba(23,38,58,0.18)] transition-all duration-200 hover:bg-white hover:shadow-[0_6px_18px_rgba(23,38,58,0.25)] disabled:opacity-25 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-baltic-bg';
 
   return (
     <section id="projects" className="bg-baltic-surface py-16 lg:py-20 px-6 sm:px-10 lg:px-14 scroll-mt-16">
       <div className="container mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="font-mono font-bold text-[26px] text-baltic-ink">Projects</h2>
+        <h2 className="font-mono font-bold text-[26px] text-baltic-ink mb-8">Projects</h2>
+        <div className="relative">
+          <div
+            ref={viewportRef}
+            className="overflow-hidden -mx-3 -my-3 py-3"
+            onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+            onTouchEnd={onTouchEnd}
+          >
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${index * (100 / itemsPerView)}%)` }}
+            >
+              {projects.map((project, i) => (
+                <div key={i} className="flex-none px-3" style={{ width: `${100 / itemsPerView}%` }}>
+                  <ProjectCard {...project} />
+                </div>
+              ))}
+            </div>
+          </div>
           {maxIndex > 0 && (
-            <div className="flex gap-2">
+            <>
               <button
                 onClick={() => move(-1)}
                 disabled={index === 0}
-                className={arrowClass}
+                className={`${arrowClass} left-0 -translate-x-1/2`}
                 aria-label="Previous projects"
               >
-                <FiChevronLeft size={18} />
+                <FiChevronLeft size={20} />
               </button>
               <button
                 onClick={() => move(1)}
                 disabled={index === maxIndex}
-                className={arrowClass}
+                className={`${arrowClass} right-0 translate-x-1/2`}
                 aria-label="Next projects"
               >
-                <FiChevronRight size={18} />
+                <FiChevronRight size={20} />
               </button>
-            </div>
+            </>
           )}
         </div>
-        <div
-          className="overflow-hidden -mx-3 -my-3 py-3"
-          onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
-          onTouchEnd={onTouchEnd}
-        >
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${index * (100 / itemsPerView)}%)` }}
-          >
-            {projects.map((project, i) => (
-              <div key={i} className="flex-none px-3" style={{ width: `${100 / itemsPerView}%` }}>
-                <ProjectCard {...project} />
-              </div>
+        {maxIndex > 0 && (
+          <div className="flex justify-center gap-2 mt-7">
+            {Array.from({ length: maxIndex + 1 }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === index ? 'w-6 bg-baltic-ink' : 'w-2 bg-baltic-ink/25 hover:bg-baltic-ink/45'
+                }`}
+                aria-label={`Show projects ${i + 1} to ${i + itemsPerView}`}
+              />
             ))}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
