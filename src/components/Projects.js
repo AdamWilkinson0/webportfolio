@@ -142,7 +142,7 @@ const Projects = () => {
   };
 
   const arrowClass =
-    'absolute top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-baltic-bg border border-baltic-ink/15 text-baltic-ink shadow-[0_4px_14px_rgba(23,38,58,0.18)] transition-all duration-200 hover:bg-white hover:shadow-[0_6px_18px_rgba(23,38,58,0.25)] disabled:opacity-25 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-baltic-bg';
+    'absolute top-1/2 -translate-y-1/2 z-10 w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-baltic-bg border border-baltic-ink/15 text-baltic-ink shadow-[0_4px_14px_rgba(23,38,58,0.18)] transition-all duration-200 hover:bg-white hover:shadow-[0_6px_18px_rgba(23,38,58,0.25)] disabled:opacity-25 disabled:shadow-none disabled:cursor-not-allowed disabled:hover:bg-baltic-bg';
 
   // Sits midway between the cards and the edge of the screen. The gutter is the
   // section padding plus whatever slack the centred container leaves, so measure it
@@ -162,7 +162,7 @@ const Projects = () => {
             onTouchEnd={onTouchEnd}
           >
             <div
-              className="flex transition-transform duration-500 ease-out"
+              className="flex transition-transform duration-[320ms] ease-out"
               style={{ transform: `translateX(-${index * (100 / itemsPerView)}%)` }}
             >
               {projects.map((project, i) => (
@@ -181,7 +181,7 @@ const Projects = () => {
                 style={{ '--arrow-inset': arrowInset }}
                 aria-label="Previous projects"
               >
-                <FiChevronLeft size={20} />
+                <FiChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
               </button>
               <button
                 onClick={() => move(1)}
@@ -190,7 +190,7 @@ const Projects = () => {
                 style={{ '--arrow-inset': arrowInset }}
                 aria-label="Next projects"
               >
-                <FiChevronRight size={20} />
+                <FiChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
               </button>
             </>
           )}
