@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FiLinkedin } from 'react-icons/fi';
 
-const FACTS = [
-  '$ hobbies → motorsport, rock climbing, running, mountaineering, sailing',
-  '$ currently → learning Android App Development, using Kotlin',
-  '$ next_project → creating an iPhone standby mode clone for android',
+const CURRENTLY = [
+  ['Building', 'Kotlin expense-tracking app'],
+  ['Learning', 'Android development with Jetpack Compose'],
+  ['Exploring', 'Practical AI tools and data visualisation'],
+  ['Hobbies', 'Motorsport, rock climbing, running, mountaineering, sailing'],
 ];
+
+const UPDATED = 'September 2026';
 
 const SKILLS = ['Python', 'JavaScript', 'SQL', 'Java', 'Node.js', 'C', 'HTML/CSS', 'TypeScript', 'Kotlin', 'PostgreSQL'];
 
@@ -16,10 +19,7 @@ const Highlight = ({ children }) => (
 const EMAIL = 'aw13g25@soton.ac.uk';
 const LINKEDIN = 'https://www.linkedin.com/in/adam-wilkinson-1b34501a8';
 
-const DEFAULT_FACT = FACTS.findIndex((f) => f.startsWith('$ currently'));
-
 const Landing = () => {
-  const [fact, setFact] = useState(DEFAULT_FACT);
   const [contactOpen, setContactOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const contactRef = useRef(null);
@@ -44,8 +44,6 @@ const Landing = () => {
       // Clipboard API unavailable — fall back silently
     }
   };
-
-  const cycleFact = () => setFact((f) => (f + 1) % FACTS.length);
 
   return (
     <section
@@ -131,24 +129,23 @@ const Landing = () => {
             ))}
           </div>
 
-          <div className="bg-baltic-ink rounded-[10px] px-5 py-4 font-mono text-[13.5px] text-baltic-surface shadow-[0_8px_24px_rgba(23,38,58,0.25)]">
-            <div className="flex gap-[7px] mb-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#e0796a]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#e8b95f]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#9fc1e0]" />
-            </div>
-            <div className="text-[#9fc1e0]">$ python3 adamwilkinson.py</div>
-            <div className="mt-1.5 min-h-[20px]">
-              {FACTS[fact]}
-              <span className="animate-blink">▌</span>
-            </div>
-            <button
-              onClick={cycleFact}
-              className="mt-3 inline-block text-[#7ea3c4] underline underline-offset-4 cursor-pointer"
+          <section aria-labelledby="currently-heading" className="border-t border-baltic-ink/15 pt-5">
+            <h2
+              id="currently-heading"
+              className="font-mono text-[12px] uppercase tracking-[0.14em] text-baltic-blue mb-3"
             >
-              next fact →
-            </button>
-          </div>
+              Currently
+            </h2>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-[15px] leading-[1.5]">
+              {CURRENTLY.map(([label, value]) => (
+                <React.Fragment key={label}>
+                  <dt className="font-sans font-semibold text-baltic-ink">{label}</dt>
+                  <dd className="font-serif text-baltic-ink/85">{value}</dd>
+                </React.Fragment>
+              ))}
+            </dl>
+            <p className="mt-4 font-mono text-[11.5px] text-baltic-ink/55">Updated {UPDATED}</p>
+          </section>
         </div>
       </div>
     </section>
