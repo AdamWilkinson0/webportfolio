@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FiLinkedin } from 'react-icons/fi';
 
 const CURRENTLY = [
-  ['Building', 'Kotlin expense-tracking app'],
-  ['Learning', 'Android development with Jetpack Compose'],
-  ['Exploring', 'Practical AI tools and data visualisation'],
-  ['Hobbies', 'Motorsport, rock climbing, running, mountaineering, sailing'],
+  ['Building', 'Kotlin NFC payment demo'],
+  ['Learning', 'How scalable apps are structured'],
+  ['Exploring', 'Building reliable AI agents that improve development'],
+  ['Hobbies', 'Motorsport, climbing, running, sailing'],
 ];
 
 const UPDATED = 'September 2026';
