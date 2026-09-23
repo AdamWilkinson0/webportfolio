@@ -13,7 +13,7 @@ const Highlight = ({ children }) => (
   <span className="bg-baltic-blue/[0.14] px-1.5 py-0.5 rounded">{children}</span>
 );
 
-const EMAIL = 'adamowilkinson14@gmail.com';
+const EMAIL = 'aw13g25@soton.ac.uk';
 const LINKEDIN = 'https://www.linkedin.com/in/adam-wilkinson-1b34501a8';
 
 const DEFAULT_FACT = FACTS.findIndex((f) => f.startsWith('$ currently'));
