@@ -14,7 +14,9 @@ const ProjectCard = ({ name, tagline, technologies, images, link }) => {
       <div className="relative">
         <img
           src={images[activeImg]}
-          alt={`${name} screenshot ${activeImg + 1}`}
+          alt={`${name} — ${tagline}`}
+          loading="lazy"
+          decoding="async"
           className="w-full h-56 object-cover object-top border-b border-baltic-ink/10"
         />
         {images.length > 1 && (
@@ -151,9 +153,9 @@ const Projects = () => {
   const arrowInset = 'calc((100% - 100vw) / 4)';
 
   return (
-    <section id="projects" className="bg-baltic-surface py-16 lg:py-20 px-6 sm:px-10 lg:px-14 scroll-mt-16">
+    <section id="projects" aria-labelledby="projects-heading" className="bg-baltic-surface py-16 lg:py-20 px-6 sm:px-10 lg:px-14 scroll-mt-16">
       <div className="container mx-auto">
-        <h2 className="font-mono font-bold text-[26px] text-baltic-ink mb-8">Projects</h2>
+        <h2 id="projects-heading" className="font-mono font-bold text-[26px] text-baltic-ink mb-8">Projects</h2>
         <div className="relative">
           <div
             ref={viewportRef}

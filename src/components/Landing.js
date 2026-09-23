@@ -50,6 +50,7 @@ const Landing = () => {
   return (
     <section
       id="landing"
+      aria-label="About Adam Wilkinson"
       className="relative px-6 sm:px-10 lg:px-14 pt-28 pb-16 lg:pt-32 lg:pb-20"
     >
       <div className="container mx-auto flex flex-col lg:flex-row gap-12 lg:gap-14 items-start">
@@ -57,7 +58,9 @@ const Landing = () => {
         <div className="lg:flex-none lg:w-[380px] flex flex-col gap-6">
           <img
             src="/images/profile.png"
-            alt="Adam Wilkinson"
+            alt="Portrait of Adam Wilkinson, software engineer"
+            width="96"
+            height="96"
             className="w-24 h-24 mb-3 object-cover rounded-[14px] border-2 border-white shadow-[0_2px_8px_rgba(23,38,58,0.15)]"
           />
           <h1 className="font-mono font-bold text-5xl md:text-6xl leading-[1.05] tracking-tight text-baltic-ink">
@@ -95,7 +98,7 @@ const Landing = () => {
                   <a
                     href={LINKEDIN}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="me noopener noreferrer"
                     className="mt-2 flex items-center gap-2 rounded-md px-3 py-2 text-[14px] text-baltic-ink hover:text-baltic-blue transition-colors"
                   >
                     <FiLinkedin className="flex-none" /> LinkedIn

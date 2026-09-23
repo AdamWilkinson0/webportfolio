@@ -34,9 +34,9 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-16 lg:py-20 px-6 sm:px-10 lg:px-14 scroll-mt-16">
+    <section id="experience" aria-labelledby="experience-heading" className="py-16 lg:py-20 px-6 sm:px-10 lg:px-14 scroll-mt-16">
       <div className="container mx-auto">
-        <h2 className="font-mono font-bold text-[26px] text-baltic-ink mb-8">Experience</h2>
+        <h2 id="experience-heading" className="font-mono font-bold text-[26px] text-baltic-ink mb-8">Experience</h2>
         <div className="flex flex-col gap-8">
           {experiences.map((exp, index) => (
             <div
@@ -57,12 +57,12 @@ const Experience = () => {
           ))}
         </div>
 
-        <div className="mt-11 font-serif text-sm text-baltic-ink/55">
+        <footer className="mt-11 font-serif text-sm text-baltic-ink/55">
           Find me on{' '}
           <a
             href="https://github.com/AdamWilkinson0"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="text-baltic-blue hover:underline"
           >
             GitHub
@@ -71,13 +71,13 @@ const Experience = () => {
           <a
             href="https://www.linkedin.com/in/adam-wilkinson-1b34501a8"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="text-baltic-blue hover:underline"
           >
             LinkedIn
           </a>
           .
-        </div>
+        </footer>
       </div>
     </section>
   );

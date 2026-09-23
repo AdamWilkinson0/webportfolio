@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Adam Wilkinson",
+  "name": "Adam Wilkinson | Software Engineer",
+  "description": "Portfolio of Adam Wilkinson, software engineer and Computer Science student at the University of Southampton.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,18 +9,33 @@
       "type": "image/x-icon"
     },
     {
+      "src": "favicon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "lang": "en-GB",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#eef3f8",
+  "background_color": "#eef3f8"
 }

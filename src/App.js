@@ -8,9 +8,11 @@ function App() {
   return (
     <div className="bg-baltic-bg text-baltic-ink min-h-screen">
       <Navbar />
-      <Landing />
-      <Projects />
-      <Experience />
+      <main>
+        <Landing />
+        <Projects />
+        <Experience />
+      </main>
     </div>
   );
 }
