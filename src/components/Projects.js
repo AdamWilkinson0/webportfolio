@@ -82,13 +82,6 @@ const Projects = () => {
       images: ['/images/nyse-1.png', '/images/nyse-2.png'],
       link: 'https://github.com/AdamWilkinson0/Stock-News-Sentiment-Analysis',
     },
-    {
-      name: 'Countrivia',
-      tagline: 'Geography quiz: map & typing challenge modes.',
-      technologies: ['JavaScript', 'HTML/CSS'],
-      images: ['/images/countrivia-1.png', '/images/countrivia-2.png'],
-      link: 'https://countriviaa.netlify.app',
-    },
   ];
 
   const [itemsPerView, setItemsPerView] = useState(getItemsPerView);
